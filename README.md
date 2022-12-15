@@ -37,3 +37,11 @@ Basic time-series forecasting assumes regressing the observation at the time t o
 Approximate or Sample Entropy methods can be used to quantify the regularity and predictability of fluctuations in a time series. The higher the entropies are, the more difficult is to forecast the time series. As difficulty increases, the time series converge to what is called – white noise, series of random numbers with mean equals 0.
 
 
+## Time Series Forecasting
+	
+There are many different methods and approaches to time-series forecasting. The simplest methods which are typically used for determining baseline forecasting performance are Average, Naïve and Seasonal Naïve (those models are often used as benchmark models). In Average method, the forecasts of all future values are equal to mean of the historical data. If the dataset is split to train and test sets, then Average of training set is used as a forecast. For Naïve forecasts, all forecasts are set to be values of the last observation, or: f<sub>t+1</sub>=o<sub>t</sub>. Naïve forecasts are considered optimal when data follow a random walk and they can be used only in walk-forward or rolling forecasts, not in long-term forecasting. Seasonal Naïve method is useful for time-series that show seasonality effects. Each forecast is set to be equal to the mean of the observed values from the same time in previous seasonal cycles.
+
+
+
+
+Seasonal decomposition can be also used for forecasting, by building the model (by using any other approach) on the time-series data with subtracted residual component, as calculated by any of the decomposition methods (such as STL). Another, quite successful classical forecasting method is Simple Exponential Smoothing (SES), where forecasts are calculated as: o<sub>t+1</sub>=αo<sub>t</sub>+α(1-α)o<sub>t-1</sub>+ α(1-α)<sup>2</sup>o<sub>t-2</sub>+..+ α(1-α)<sup>n</sup>o<sub>t-n</sub>, with: 0<α<1. Here, the forecast is equal to a weighted average of the past observations, where weights decrease exponentially as we go back in time. There are also improved SES methods which consider trends and seasonality.	
