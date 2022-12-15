@@ -81,7 +81,7 @@ Some rules for defining the initial set of parameters often used in a literature
 - Rule of thumb: P+Q≤2        
         
 
-## PROPHET Method
+## [PROPHET Method](https://facebook.github.io/prophet/#:~:text=Prophet%20is%20a%20procedure%20for,several%20seasons%20of%20historical%20data.)
 	
 Prophet is Facebook’s additive regression model, that includes: linear or logistic trend, yearly seasonal component modeled using Fourier series and user-provided list of important holidays. The model facilitates easy customization and reliable forecasts with default configurations. According to the authors, Prophet is successful for forecasting data with strong "human-scale" seasonality (day of week, time of year), reasonable number of missing data and/or outliers, historical trend changes, non-linear trends (with saturation), at least one year of observations, known holidays.
 
