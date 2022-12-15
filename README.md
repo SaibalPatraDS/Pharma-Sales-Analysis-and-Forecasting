@@ -96,7 +96,7 @@ Prophet model is tuned by using the following hyper-parameters (only selected pa
 - seasonality_prior_scale parameter. This parameter will again allow your seasonalities to be more flexible.	
 	
 
-### Neural Networks 
+### [Neural Networks](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTM)
 
 Long-Short Term Memory (LSTM) are a form of Recurrent Neural Networks (RNN) - deep learning architectures that are characterized by the use of LSTM units in hidden layers. Main feature of RNNs is that they allow information to persist, or they can inform the decision on some classification or regression task in the moment t, by using observations (or decisions) at moments t-1, t-2,.., t-n. In this research, three different LSTM architectures were used. Vanilla LSTM is made of a single hidden layer of LSTM units, and an output layer used to make a prediction. Stacked LSTM is architecture with two or more hidden layers of LSTM units stacked one on top of another. In bidirectional LSTM architecture model learns the input sequences both forward and backward.
 	
