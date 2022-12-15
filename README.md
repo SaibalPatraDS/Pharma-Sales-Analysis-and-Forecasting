@@ -116,4 +116,34 @@ Forecasting was carried out at the weekly scale. Two different approaches to for
 
 Train-test split validation with one last year of data (52 rows) was used for testing. Key performance indicator for forecasting accuracies in both approaches was Mean Squared Error (MSE). Mean Absolute Percentage Error (MAPE) was provided only as an illustration because data on different groups of pharmaceutical products were on significantly diverse scales. Baseline accuracy was calculated by using Naïve and Seasonal Naïve, for rolling forecasts and Average method for long-term ones. Three different models were tested: ARIMA/SARIMA (for rolling and long-term forecast), Facebook’s Prophet (for rolling and long-term forecast) and Long-Short Term Memory (LSTM) artificial neural network architectures (for long-term forecast).
 
-Hyper-parameters were optimized by using three approaches: manually – with ACF/PACF plot analysis, Python’s statsmodels function and grid search optimization. Grid search was used as adopted approach for hyper-parameters optimization, for ARIMA and Prophet model. LSTM was applied only for long-term forecasting. The data preparation process for LSTM included transforming to stationary time series, sequencing time series to supervised problem data shape [X<sub>t-n_steps</sub>...X<sub>t-2</sub>,X<sub>t-1</sub>][y<sub>t</sub>] (after determining input vector dimension which gives best accuracies), and time series scaling (normalization or standardization). Three LSTM architectures were tested: Vanilla LSTM, Stacked LSTM and Bidirectional LSTM. No optimization of hyper-parameters was carried out. In order to get comparable results, pseudo-random generators of Python, Numpy and Tensorflow were set to fixed values.	
+Hyper-parameters were optimized by using three approaches: manually – with ACF/PACF plot analysis, Python’s statsmodels function and grid search optimization. Grid search was used as adopted approach for hyper-parameters optimization, for ARIMA and Prophet model. LSTM was applied only for long-term forecasting. The data preparation process for LSTM included transforming to stationary time series, sequencing time series to supervised problem data shape [X<sub>t-n_steps</sub>...X<sub>t-2</sub>,X<sub>t-1</sub>][y<sub>t</sub>] (after determining input vector dimension which gives best accuracies), and time series scaling (normalization or standardization). Three LSTM architectures were tested: Vanilla LSTM, Stacked LSTM and Bidirectional LSTM. No optimization of hyper-parameters was carried out. In order to get comparable results, pseudo-random generators of Python, Numpy and Tensorflow were set to fixed values.
+	
+	
+## Feature Engineering 
+
+Initial dataset consisted of 600000 transactional data collected in 6 years (period 2014-2019), indicating date and time of sale, pharmaceutical drug brand name and sold quantity. As a result of the interviews with pharmacists, decision was made that the subject of analyses and forecasting will be actual drug categories, instead of the individual drugs. Thus, selected group of drugs (57 drugs) is classified to 8 Anatomical Therapeutic Chemical (ATC) Classification System categories: 
+- M01AB - Anti-inflammatory and antirheumatic products, non-steroids, Acetic acid derivatives and related substances
+- M01AE - Anti-inflammatory and antirheumatic products, non-steroids, Propionic acid derivatives
+- N02BA - Other analgesics and antipyretics, Salicylic acid and derivatives
+- N02BE/B - Other analgesics and antipyretics, Pyrazolones and Anilides
+- N05B - Psycholeptics drugs, Anxiolytic drugs
+- N05C - Psycholeptics drugs, Hypnotics and sedatives drugs
+- R03 - Drugs for obstructive airway diseases
+- R06 - Antihistamines for systemic use
+
+ATC codes features are added to the dataset, namely a model has been transformed as indicated on the image below and data was resampled to the hourly time-series.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
