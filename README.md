@@ -45,3 +45,40 @@ There are many different methods and approaches to time-series forecasting. The 
 
 
 Seasonal decomposition can be also used for forecasting, by building the model (by using any other approach) on the time-series data with subtracted residual component, as calculated by any of the decomposition methods (such as STL). Another, quite successful classical forecasting method is Simple Exponential Smoothing (SES), where forecasts are calculated as: o<sub>t+1</sub>=αo<sub>t</sub>+α(1-α)o<sub>t-1</sub>+ α(1-α)<sup>2</sup>o<sub>t-2</sub>+..+ α(1-α)<sup>n</sup>o<sub>t-n</sub>, with: 0<α<1. Here, the forecast is equal to a weighted average of the past observations, where weights decrease exponentially as we go back in time. There are also improved SES methods which consider trends and seasonality.	
+
+	
+	
+## ARIMA method
+        
+ARIMA (Auto-Regressive Integrated Moving Average) models are most commonly used tools for forecasting univariate stationary time-series. Model uses the dependency relationship (correlation) between an observation and some number of lagged observations (AR) in the past. It is integrated (I), namely it uses differencing (see above) to make time-series stationary, within the method. Finally, it uses the dependency between an observation and a residual error from a moving average model applied to lagged observations (MA). Hyperparameters of one ARIMA model are:
+- p: lag order - number of observations in prior time steps included in the model. Typically, it is equal to the lag at which PACF cuts off the cone of the confidence interval
+- d: differencing degree - number of times that the raw observations are differenced. If the data series is stationary, d=0. If not, it is d>1.
+- q: moving average order - size of the moving average window.
+
+Some common rules for choosing initial AR and MA values (p,q), found in the literature are:
+
+- If the PACF of the differenced series displays a sharp cutoff and/or the lag-1 autocorrelation is positive, then non-zero AR factor should be added to the model. The lag at which the PACF cuts off is the indicated value of p.
+- If the ACF of the differenced series displays a sharp cutoff and/or the lag-1 autocorrelation is negative, then non-zero MA factor should be added to the model. The lag at which the ACF cuts off is the indicated value of q.
+
+Some common rules for choosing d are:
+
+- Rule 1 : If the series has positive autocorrelations out to a high number of lags, then it probably needs a higher order of differencing.
+- Rule 2 : If the lag-1 autocorrelation is zero or negative, or the autocorrelations are all small and random, then the series does not need a higher order of differencing. If the lag-1 autocorrelation is -0.5 or more negative, the series may be overdifferenced. (Robert Nau, Statistical Forecasting)
+
+Method is improved with SARIMA (Seasonal ARIMA) – SARIMAX Python implementation was used. While SARIMA facilitates direct modeling of the seasonal component of time-series (by considering its own lag order, differencing degree, MA order and an actual lag), SARIMAX provides the extension for using exogenous variables and thus enable multivariate time-series forecasting.
+Besides p,d,q parameters of ARIMA, SARIMA also considers additional parameters: P,D,Q,m:
+
+- P: Seasonal autoregressive order.
+- D: Seasonal difference order.
+- Q: Seasonal moving average order.
+- m: The number of time steps for a single seasonal period. m of 12 for monthly data suggests a yearly seasonal cycle.
+
+Some rules for defining the initial set of parameters often used in a literature are as follows:
+- m is equal to the ACF lag with the highest value (typically at a high lag).
+- D=1 if the series has a stable seasonal pattern over time. D=0 if the series has an unstable seasonal pattern over time.
+- P≥1 if the ACF is positive at lag S, else P=0.
+- Q≥1 if the ACF is negative at lag S, else Q=0.
+- Rule of thumb: P+Q≤2        
+        
+	
+	
