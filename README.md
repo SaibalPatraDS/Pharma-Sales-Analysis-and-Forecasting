@@ -132,9 +132,16 @@ Initial dataset consisted of 600000 transactional data collected in 6 years (per
 - R06 - Antihistamines for systemic use
 
 ATC codes features are added to the dataset, namely a model has been transformed as indicated on the image below and data was resampled to the hourly time-series.
+
+<img class="img-fluid" src="https://novafabrika.com/notebooks/pharma/datamapping.jpg">	
 	
+## Conclusion
 	
-	
+To conclude, time-series analyses and forecasts have guided potentially useful conclusions and recommendations to the pharmacy. Daily, weekly and annual seasonality analysis were proven useful for identifying the periods in which special sales and marketing campaigns could be implemented, except for N05B and N05C categories of drugs which did not exhibit significant regularities. Forecasts have proven better than Naïve methods and in acceptable intervals for long-term planning. It is highly likely that the forecasts could be significantly improved by expanding the problem scope to multivariate time series forecasting and by including explanatory variables, such as:
+- Weather data. Sales of antirheumatic drugs in M01AB and M01AE categories could be affected by the changes of atmospheric pressure. Sudden declines in all categories could be explained by extreme weather conditions, such as heavy rain, thunderstorms and blizzards.
+- Price of the drugs. Sales spikes may be explained by the discounts, applied in a short term. Introducing this feature may facilitate what-if forecasting analysis of sales performance during marketing campaigns involving price reductions.
+- Dates of the pension payoff. Sales spikes are visible at the dates of state pensions payoff.
+- National holidays, as non-working days with seasonal patterns similar to Sundays are expected to disrupt daily sales.	
 	
 	
 	
