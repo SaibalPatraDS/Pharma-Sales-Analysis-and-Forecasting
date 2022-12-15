@@ -80,5 +80,18 @@ Some rules for defining the initial set of parameters often used in a literature
 - Q≥1 if the ACF is negative at lag S, else Q=0.
 - Rule of thumb: P+Q≤2        
         
+
+## PROPHET Method
 	
+Prophet is Facebook’s additive regression model, that includes: linear or logistic trend, yearly seasonal component modeled using Fourier series and user-provided list of important holidays. The model facilitates easy customization and reliable forecasts with default configurations. According to the authors, Prophet is successful for forecasting data with strong "human-scale" seasonality (day of week, time of year), reasonable number of missing data and/or outliers, historical trend changes, non-linear trends (with saturation), at least one year of observations, known holidays.
+
+Prophet model is tuned by using the following hyper-parameters (only selected parameters are noted):
+
+- growth. For a linear trending, value should be 'linear'. If not, 'logistic'. In latter case, the cap (maximum value data will reach) and floor (minimum value data will reach) of predictions need to be provided. This is typically determined by domain experts.
+- interval_width. the uncertainty interval to produce a confidence interval around the forecast.
+- fourier_order. the number of Fourier components each seasonality is composed of.
+- n_changepoints. The changepoints parameter is used when the changepoint dates are supplied instead of having Prophet determine them. In practice Prophet should be let to do that alone.
+- changepoint_range usually does not have that much of an effect on the performance.
+- changepoint_prior_scale, is there to indicate how flexible the changepoints are allowed to be. In other words, how much can the changepoints fit to the data. If high it will be more flexible, but then overfitting is possible.
+- seasonality_prior_scale parameter. This parameter will again allow your seasonalities to be more flexible.	
 	
