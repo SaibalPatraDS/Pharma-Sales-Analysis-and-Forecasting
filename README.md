@@ -48,7 +48,7 @@ Seasonal decomposition can be also used for forecasting, by building the model (
 
 	
 	
-## [ARIMA method](https://www.statsmodels.org/dev/generated/statsmodels.tsa.arima.model.ARIMA.html)
+### [ARIMA method](https://www.statsmodels.org/dev/generated/statsmodels.tsa.arima.model.ARIMA.html)
         
 ARIMA (Auto-Regressive Integrated Moving Average) models are most commonly used tools for forecasting univariate stationary time-series. Model uses the dependency relationship (correlation) between an observation and some number of lagged observations (AR) in the past. It is integrated (I), namely it uses differencing (see above) to make time-series stationary, within the method. Finally, it uses the dependency between an observation and a residual error from a moving average model applied to lagged observations (MA). Hyperparameters of one ARIMA model are:
 - p: lag order - number of observations in prior time steps included in the model. Typically, it is equal to the lag at which PACF cuts off the cone of the confidence interval
@@ -81,7 +81,7 @@ Some rules for defining the initial set of parameters often used in a literature
 - Rule of thumb: P+Q≤2        
         
 
-## [PROPHET Method](https://facebook.github.io/prophet/#:~:text=Prophet%20is%20a%20procedure%20for,several%20seasons%20of%20historical%20data.)
+### [PROPHET Method](https://facebook.github.io/prophet/#:~:text=Prophet%20is%20a%20procedure%20for,several%20seasons%20of%20historical%20data.)
 	
 Prophet is Facebook’s additive regression model, that includes: linear or logistic trend, yearly seasonal component modeled using Fourier series and user-provided list of important holidays. The model facilitates easy customization and reliable forecasts with default configurations. According to the authors, Prophet is successful for forecasting data with strong "human-scale" seasonality (day of week, time of year), reasonable number of missing data and/or outliers, historical trend changes, non-linear trends (with saturation), at least one year of observations, known holidays.
 
@@ -95,3 +95,25 @@ Prophet model is tuned by using the following hyper-parameters (only selected pa
 - changepoint_prior_scale, is there to indicate how flexible the changepoints are allowed to be. In other words, how much can the changepoints fit to the data. If high it will be more flexible, but then overfitting is possible.
 - seasonality_prior_scale parameter. This parameter will again allow your seasonalities to be more flexible.	
 	
+
+### Neural Networks 
+
+Long-Short Term Memory (LSTM) are a form of Recurrent Neural Networks (RNN) - deep learning architectures that are characterized by the use of LSTM units in hidden layers. Main feature of RNNs is that they allow information to persist, or they can inform the decision on some classification or regression task in the moment t, by using observations (or decisions) at moments t-1, t-2,.., t-n. In this research, three different LSTM architectures were used. Vanilla LSTM is made of a single hidden layer of LSTM units, and an output layer used to make a prediction. Stacked LSTM is architecture with two or more hidden layers of LSTM units stacked one on top of another. In bidirectional LSTM architecture model learns the input sequences both forward and backward.
+	
+	
+## Methodology 
+	
+The methodology for implementing this case study follows the typical time series forecasting pipeline, consisting of three major phases: 
+1. feature engineering and data preparation; 
+2. exploratory data analysis (time-series analysis); and 
+3. forecasting.
+
+Based on the problem and objective formal definition, the data acquired from the sales information system are cleaned, feature engineering approach was defined, and all data are transformed to hourly time series, consisting of aggregate sales among different classes of pharmaceutical products in hourly time periods, namely: anti-inflammatory and antirheumatic products (M01AB, M01AE), analgesics and antipyretics (N02BA, N02BE), psycholeptics drugs (N05B, N05C), drugs for obstructive airway diseases (R03) and antihistamines for systemic use (R06). This, intermediary series is used for the formal definition of anomalies and their identification. Also, outliers are detected in consultation with pharmacy staff and treated by first, imputing the missing data and then, by imputing representative data, by using several methods. Finally, data is then rescaled to weekly time-series and stored.
+
+Time series analysis had two-fold objective. First, annual, weekly and daily data analysis were done with objective to make potentially useful conclusions and propositions for improving sales and marketing strategies. Then, stationarity, autocorrelation and predictability analysis of the time series in individual groups was analyzed to infer the initial set of parameters for implementing the forecasting methods.
+
+Forecasting was carried out at the weekly scale. Two different approaches to forecasting problem scoping were adopted. First one implements so called rolling forecast, namely forecasting the sales in the next week, by using the model trained with all historical data. Therefore, during testing, prediction in a timestep t is based on the model which fits the training set consisting of observations in timesteps (0,t-1), or: f(t) = f(o[0:t-1]). Rolling forecast model can be used for short-term resource planning and planning the procurement of stock of pharmaceutical products. Another approach is related to long-term forecasting, for example forecasting the future period of one year, by using the model trained with historical data. This model can be used for business planning and making decisions of strategic nature.
+
+Train-test split validation with one last year of data (52 rows) was used for testing. Key performance indicator for forecasting accuracies in both approaches was Mean Squared Error (MSE). Mean Absolute Percentage Error (MAPE) was provided only as an illustration because data on different groups of pharmaceutical products were on significantly diverse scales. Baseline accuracy was calculated by using Naïve and Seasonal Naïve, for rolling forecasts and Average method for long-term ones. Three different models were tested: ARIMA/SARIMA (for rolling and long-term forecast), Facebook’s Prophet (for rolling and long-term forecast) and Long-Short Term Memory (LSTM) artificial neural network architectures (for long-term forecast).
+
+Hyper-parameters were optimized by using three approaches: manually – with ACF/PACF plot analysis, Python’s statsmodels function and grid search optimization. Grid search was used as adopted approach for hyper-parameters optimization, for ARIMA and Prophet model. LSTM was applied only for long-term forecasting. The data preparation process for LSTM included transforming to stationary time series, sequencing time series to supervised problem data shape [X<sub>t-n_steps</sub>...X<sub>t-2</sub>,X<sub>t-1</sub>][y<sub>t</sub>] (after determining input vector dimension which gives best accuracies), and time series scaling (normalization or standardization). Three LSTM architectures were tested: Vanilla LSTM, Stacked LSTM and Bidirectional LSTM. No optimization of hyper-parameters was carried out. In order to get comparable results, pseudo-random generators of Python, Numpy and Tensorflow were set to fixed values.	
