@@ -48,7 +48,7 @@ Seasonal decomposition can be also used for forecasting, by building the model (
 
 	
 	
-## ARIMA method
+## [ARIMA method](https://www.statsmodels.org/dev/generated/statsmodels.tsa.arima.model.ARIMA.html)
         
 ARIMA (Auto-Regressive Integrated Moving Average) models are most commonly used tools for forecasting univariate stationary time-series. Model uses the dependency relationship (correlation) between an observation and some number of lagged observations (AR) in the past. It is integrated (I), namely it uses differencing (see above) to make time-series stationary, within the method. Finally, it uses the dependency between an observation and a residual error from a moving average model applied to lagged observations (MA). Hyperparameters of one ARIMA model are:
 - p: lag order - number of observations in prior time steps included in the model. Typically, it is equal to the lag at which PACF cuts off the cone of the confidence interval
